@@ -6,7 +6,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 // const { OAuth2Client } = require("google-auth-library");
 const config = require("../../config");
+const { sendMail, genrateOtp } = require("../../utils/otpUtils");
 const { JWT_SECRET } = config;
+const Otp = require("../../models/Otp");
+
 // const { sendMail } = require("../../Utils/Email");
 // const { setProfilePic } = require("../../Utils/ProfilePic");
 
@@ -31,7 +34,7 @@ router.post("/", (req, res) => {
             password: hashedPassword,
             createdAt: new Date().toISOString(),
           },
-          (err, user) => {
+          async (err, user) => {
             if (err) {
               console.log(err);
               return res.status(500).send({ message: "Registration failed" });
@@ -51,7 +54,27 @@ router.post("/", (req, res) => {
                 JWT_SECRET,
                 { expiresIn: 1000 * 60 * 60 * 24 }
               );
-
+              const otp = genrateOtp();
+              Otp.create(
+                {
+                  _id: new mongoose.Types.ObjectId(),
+                  value: otp.toString(),
+                  email: user.email,
+                  createdAt: new Date().toISOString(),
+                },
+                (err, otp) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log(otp);
+                  }
+                }
+              );
+              await sendMail(
+                user.email,
+                "Verfication",
+                `Otp For Registration Is : ${otp}`
+              );
               res
                 .status(200)
                 .send({ auth: true, token: token, userName: user.name });
