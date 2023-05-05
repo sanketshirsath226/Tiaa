@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   messageId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Messages",
@@ -33,7 +32,6 @@ const PostSchema = new mongoose.Schema({
     ref: 'Comment'
   }]
   ,
-  categories:String,
   createdAt: {
     type: Date,
     default: Date.now(),
