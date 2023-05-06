@@ -1,0 +1,10 @@
+.navIcons {
+    display: flex;
+    margin-top: 1rem;
+    justify-content: space-evenly;
+}
+
+.navIcons>img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
