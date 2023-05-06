@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
-  const [liked, setLiked] = useState(data.likes.includes(user._id)?);
+  const [liked, setLiked] = useState(data.likes.includes(user._id));
   const [likes, setLikes] = useState(data.likes.length)
 
   
