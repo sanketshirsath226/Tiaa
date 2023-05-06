@@ -64,7 +64,7 @@ app.patch('/messages/:id', async (req, res) => {
   }
 });
 
-// Delete a comment by ID
+// Delete a message by ID
 app.delete('/messages/:id', async (req, res) => {
   try {
     const message = await Messages.findByIdAndDelete(req.params.id);
