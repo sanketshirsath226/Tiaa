@@ -10,18 +10,25 @@ const Posts = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
   let { posts, loading } = useSelector((state) => state.postReducer);
+
   useEffect(() => {
     dispatch(getTimelinePosts(user._id));
   }, []);
+  
+  useEffect(()=>{
+    console.log(posts)
+  },[posts])
+  
   if(!posts) return 'No Posts';
+  console.log(posts,user._id)
   if(params.id) posts = posts.filter((post)=> post.userId===params.id)
   return (
     <div className="Posts">
       {
         loading
         ? "Fetching posts...."
-        : posts.map((post, id) => {
-            return <Post data={post} key={id} />;
+        :posts.filter((post)=> post.userId!== user._id).map((post, id) => {
+             return <Post data={post} key={id} />;
           })}
     </div>
   );

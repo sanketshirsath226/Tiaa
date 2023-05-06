@@ -124,8 +124,12 @@ export const getPostByCategory = async (req, res) => {
   const category = req.params.category;
   try {
     const currentUserPosts = await PostModel.find({ userId: userId });
-
     const followingPosts = await UserModel.aggregate([
+      { 
+        $match: {
+          _id: new mongoose.Types.ObjectId(userId),
+        },
+      },
       {
         $lookup: {
           from: "posts",
@@ -134,12 +138,6 @@ export const getPostByCategory = async (req, res) => {
           as: "followingPosts",
         },
       },
-      { 
-        $match: {
-              "followingPosts.category": category
-        }
-      },
-      
       {
         $project: {
           followingPosts: 1,
@@ -149,7 +147,16 @@ export const getPostByCategory = async (req, res) => {
     ]);
     console.log(followingPosts.length)
     res.status(200).json(
-      followingPosts
+      currentUserPosts
+        .concat(...followingPosts[0].followingPosts)
+        .filter((a)=>{
+          if(a.category === category){
+            return a
+          }
+        })
+        .sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
     );
   } catch (error) {
     console.log(error)

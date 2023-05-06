@@ -9,7 +9,10 @@ const postSchema = mongoose.Schema(
       type: Date,
       default: new Date(),
     },
-    category:String,
+    category:{
+      type : String,
+      default : "orange"
+    },
     image: {
       type : String    
     },
