@@ -3,8 +3,11 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+
 import UserRoute from './routers/UserRoute.js';
 import AuthRoute from "./routers/AuthRoute.js";
+import PostRoute from "./routers/PostRoute.js";
+
 import multer from "multer";
 import path from "path";
 
@@ -59,3 +62,4 @@ mongoose
     app.use(errHandler);
 app.use('/auth', AuthRoute)
 app.use('/user', UserRoute)
+app.use('/post', PostRoute)

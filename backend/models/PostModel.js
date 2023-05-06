@@ -10,7 +10,10 @@ const postSchema = mongoose.Schema(
       default: new Date(),
     },
     category:String,
-    image: String,
+    image: {
+      type : String    
+    },
+    comments : []
   },
   {
     timestamps: true,
@@ -18,5 +21,4 @@ const postSchema = mongoose.Schema(
 );
 
 var PostModel = mongoose.model("Posts", postSchema);
-
 export default PostModel;
