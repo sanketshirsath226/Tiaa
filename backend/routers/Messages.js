@@ -4,7 +4,7 @@ const router = express.Router();
 
 const messageDB = require("../models/Messages");
 const isAuthenticated = require("../controller/requestAuthenticator");
-const Answers = require("../models/Messages");
+const Messages = require("../models/Messages");
 router.post("/", async (req, res) => {
   console.log(req.body.userDetails);
   console.log(typeof req.body.userDetails);
@@ -37,4 +37,43 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Get all message
+app.get('/messages', async (req, res) => {
+  try {
+    const message = await Messages.find({});
+    res.send(message);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+
+// Update a message by ID
+app.patch('/messages/:id', async (req, res) => {
+  try {
+    const message = await Messages.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+    if (!message) {
+      return res.status(404).send('Message not found');
+    }
+    res.send(message);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+// Delete a comment by ID
+app.delete('/messages/:id', async (req, res) => {
+  try {
+    const message = await Messages.findByIdAndDelete(req.params.id);
+    if (!message) {
+      return res.status(404).send('Message not found');
+    }
+    res.send(message);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
