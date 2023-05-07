@@ -22,12 +22,13 @@ const Posts = () => {
   if(!posts) return 'No Posts';
   console.log(posts,user._id)
   if(params.id) posts = posts.filter((post)=> post.userId===params.id)
+  if(!params.id) posts = posts.filter((post)=> post.userId!== user._id)
   return (
     <div className="Posts">
       {
         loading
         ? "Fetching posts...."
-        :posts.filter((post)=> post.userId!== user._id).map((post, id) => {
+        :posts.map((post, id) => {
              return <Post data={post} key={id} />;
           })}
     </div>

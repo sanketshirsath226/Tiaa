@@ -30,19 +30,26 @@ const PostShare = () => {
   // handle post upload
   const handleUpload = async (e) => {
     e.preventDefault();
-
+    let category = null;
+    try{
+      category = String(desc.current.value).split("#")[1]
+      console.log(category)
+    }catch(e){
+      category = null;
+    }
     //post data
     const newPost = {
       userId: user._id,
       desc: desc.current.value,
+      category
     };
 
     // if there is an image with post
     if (image) {
       const data = new FormData();
       const fileName = Date.now() + image.name;
-      data.append("name", fileName);
-      data.append("file", image);
+      data.append("image", image);
+      data.append("filename", fileName);
       newPost.image = fileName;
       console.log(newPost);
       try {
@@ -63,10 +70,10 @@ const PostShare = () => {
   return (
     <div className="PostShare">
       <img
-        src={Profile
-          /*user.profilePicture
+        src={
+          user.profilePicture
             ? serverPublic + user.profilePicture
-            : serverPublic + "defaultProfile.png"*/
+            : serverPublic + "defaultProfile.png"
         }
         alt="Profile"
       />
@@ -75,6 +82,7 @@ const PostShare = () => {
           type="text"
           placeholder="What's happening?"
           required
+          max={2000}
           ref={desc}
         />
         <div className="postOptions">

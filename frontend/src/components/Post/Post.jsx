@@ -18,6 +18,7 @@ const Post = ({ data }) => {
     setLiked((prev) => !prev);
     liked? setLikes((prev)=>prev-1): setLikes((prev)=>prev+1)
   };
+  console.log(data)
   return (
     <div className="Post">
       <img

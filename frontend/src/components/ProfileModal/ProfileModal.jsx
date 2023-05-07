@@ -36,8 +36,8 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
     if (profileImage) {
       const data = new FormData();
       const fileName = Date.now() + profileImage.name;
-      data.append("name", fileName);
-      data.append("file", profileImage);
+      data.append("filename", fileName);
+      data.append("image", profileImage);
       UserData.profilePicture = fileName;
       try {
         dispatch(uploadImage(data));
@@ -48,8 +48,8 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
     if (coverImage) {
       const data = new FormData();
       const fileName = Date.now() + coverImage.name;
-      data.append("name", fileName);
-      data.append("file", coverImage);
+      data.append("filename", fileName);
+      data.append("image", coverImage);
       UserData.coverPicture = fileName;
       try {
         dispatch(uploadImage(data));

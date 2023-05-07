@@ -6,7 +6,6 @@ import mongoose from "mongoose";
 
 export const createPost = async (req, res) => {
   const newPost = new PostModel(req.body);
-
   try {
     await newPost.save();
     res.status(200).json(newPost);
@@ -103,6 +102,8 @@ export const getTimelinePosts = async (req, res) => {
       {
         $project: {
           followingPosts: 1,
+          "firstname" : 1,
+          "lastname" : 1,
           _id: 0,
         },
       },
@@ -137,15 +138,23 @@ export const getPostByCategory = async (req, res) => {
           foreignField: "userId",
           as: "followingPosts",
         },
-      },
+      },    
       {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "userspost",
+        },
+      },  
+    {
         $project: {
           followingPosts: 1,
+          userspost : 1,
           _id: 0,
         },
       },
     ]);
-    console.log(followingPosts.length)
     res.status(200).json(
       currentUserPosts
         .concat(...followingPosts[0].followingPosts)

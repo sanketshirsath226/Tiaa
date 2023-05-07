@@ -11,7 +11,7 @@ const postSchema = mongoose.Schema(
     },
     category:{
       type : String,
-      default : "orange"
+      default : "other"
     },
     image: {
       type : String    
