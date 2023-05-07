@@ -17,13 +17,22 @@ const FollowersCard = ({ location }) => {
     fetchPersons();
   }, []);
 
+  useEffect(()=>{
+    console.log(modalOpened)
+  },[modalOpened])
+
+  const renderedComponents =persons.slice(0, 3).map((person, id) => {
+    if (person._id !== user._id) return <User person={person} key={id} />;
+  })
+  const renderedComponentsAll = persons.map((person, id) => {
+    if (person._id !== user._id) return <User person={person} key={id} />;
+  })
   return (
     <div className="FollowersCard">
-      <h3>People you may know</h3>
-
-      {persons.map((person, id) => {
-        if (person._id !== user._id) return <User person={person} key={id} />;
-      })}
+      <p>People you may know</p>
+      {
+        renderedComponents
+      }
       {!location ? (
         <span onClick={() => setModalOpened(true)}>Show more</span>
       ) : (
@@ -33,6 +42,7 @@ const FollowersCard = ({ location }) => {
       <FollowersModal
         modalOpened={modalOpened}
         setModalOpened={setModalOpened}
+        data = {renderedComponentsAll}
       />
     </div>
   );

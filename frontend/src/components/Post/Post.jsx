@@ -42,10 +42,26 @@ const Post = ({ data }) => {
           style={{ cursor: "pointer" }}
           onClick={handleLike}
         />
-        <img src={Comment} alt="" />
+        <img src={Comment} style={{ cursor: "pointer" }} alt="" />
         <img src={Share} alt="" />
       </div>
-
+      <div className="comment">
+            <input
+              required
+              type="text"
+              placeholder="@example Comment....."
+              className="comment-box"
+              name="email"
+              value={data.email}
+            />
+          <button
+            className="button ps-button"
+            // onClick={handleUpload}
+            // disabled={loading}
+          >
+            {"Share"}
+          </button>
+          </div>  
       
 
     </div>

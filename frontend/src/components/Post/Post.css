@@ -7,6 +7,32 @@
     border-radius: 1rem;
     gap: 1rem;
 }
+.comment{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 1rem;
+}
+
+.submit-button{
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 12px;
+}
+
+
+.comment-box{
+    background-color: var(--inputColor);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 17px;
+    width: 90%;
+    border: none;
+    outline: none;
+    overflow-wrap: break-word;
+    max-height: 80;
+}
 
 .Post>img{
     width: 100%;
@@ -14,7 +40,9 @@
     object-fit: cover;
     border-radius: 0.5rem;
 }
-
+.postReact>img:hover{
+    cursor: pointer;
+}
 .postReact{
     display: flex;
     align-items: flex-start;

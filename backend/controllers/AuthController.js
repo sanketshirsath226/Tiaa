@@ -1,7 +1,10 @@
 import UserModel from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+import {genrateOtp} from "../utils/otpUtils.js";
+import OtpModel from "../models/OtpModel.js";
+import {sendMail} from "../utils/otpUtils.js";
+import mongoose from "mongoose";
 // Register new user
 export const registerUser = async (req, res) => {
 
@@ -24,6 +27,24 @@ export const registerUser = async (req, res) => {
       
     // changed
     const user = await newUser.save();
+    const otp = genrateOtp();
+    console.log(otp)
+    const otpModel = new OtpModel(  {
+      // _id: new mongoose.Types.ObjectId(),
+      value: otp.toString(),
+      email: user.email,
+      createdAt: new Date().toISOString(),
+    });
+    if(!otpModel){
+      console.log("Otp Model Error")
+    }
+    await otpModel.save();
+
+    await sendMail(
+      user.email,
+      "Verfication",
+      `Otp For Registration Is : ${otp}`
+    );
     const token = jwt.sign(
       { username: user.username,email : user.email, id: user._id },
       process.env.JWTKEY,
@@ -31,11 +52,41 @@ export const registerUser = async (req, res) => {
     );
     res.status(200).json({ user, token });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error.message });
   }
 };
 
 // Login User
+
+export const otpValidate = async (req,res) =>{
+  const { email, otp } = req.body;
+  try {
+    const otpValue = await OtpModel.findOne({ email:email });
+
+    if (otpValue) {
+      const validity = (otpValue.value === otp)
+      console.log(validity)
+      if (!validity) {
+        res.status(400).json("wrong otp");
+      } else {
+        await UserModel.updateOne(
+          {
+            email : email
+        },{
+            $set : {
+                isValid : true
+            }
+        });
+        res.status(200).json("Post updated!");
+      }
+    } else {
+      res.status(404).json("User not found");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
 
 // Changed
 export const loginUser = async (req, res) => {

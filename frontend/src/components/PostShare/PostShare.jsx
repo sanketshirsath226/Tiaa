@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./PostShare.css";
 import { UilScenery } from "@iconscout/react-unicons";
 import { UilPlayCircle } from "@iconscout/react-unicons";
@@ -78,10 +78,11 @@ const PostShare = () => {
         alt="Profile"
       />
       <div>
-        <input
-          type="text"
-          placeholder="What's happening?"
+        <textarea
+          placeholder="What's happening? and Use #tag for categories"
           required
+          cols="40"
+          rows="6"
           max={2000}
           ref={desc}
         />

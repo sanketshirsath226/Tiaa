@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
 import "./ProfileModal.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,11 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  
+  useEffect(()=>{
+    console.log(modalOpened)
+  },[modalOpened])
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {

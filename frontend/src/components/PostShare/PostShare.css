@@ -19,13 +19,15 @@
     gap: 1rem;
 }
 
-.PostShare>div>input{
+.PostShare>div>textarea{
     background-color: var(--inputColor);
     border-radius: 10px;
     padding: 10px;
     font-size: 17px;
     border: none;
     outline: none;
+    overflow-wrap: break-word;
+    max-height: 80;
 }
 
 

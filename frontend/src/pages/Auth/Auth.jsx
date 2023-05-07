@@ -13,11 +13,13 @@ const Auth = () => {
     email : "",
     password: "",
     confirmpass: "",
+    otp : ""
   };
   const loading = useSelector((state) => state.authReducer.loading);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isOtp, setIsOtp] = useState(false);
 
   const [data, setData] = useState(initialState);
 
@@ -42,10 +44,10 @@ const Auth = () => {
     e.preventDefault();
     if (isSignUp) {
       data.password === data.confirmpass
-        ? dispatch(signUp(data, navigate))
+        ? dispatch(signUp(data, setIsOtp))
         : setConfirmPass(false);
     } else {
-      dispatch(logIn(data, navigate));
+      dispatch(logIn(data, setIsOtp));
     }
   };
 
@@ -136,7 +138,17 @@ const Auth = () => {
               />
             )}
           </div>
-
+          {(isSignUp && isOtp) && (<div>
+            <input
+              required
+              type="text"
+              placeholder="Otp"
+              className="infoInput"
+              name="otp"
+              value={data.otp}
+              onChange={handleChange}
+            />
+          </div>)}
           <span
             style={{
               color: "red",
