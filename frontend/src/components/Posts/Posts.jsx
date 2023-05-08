@@ -33,7 +33,11 @@ const Posts = () => {
   
   if(!posts) return 'No Posts';
   console.log(posts,user._id)
-  if(params.id) posts = posts.filter((post)=> post.userId===params.id)
+  if(params.id) posts = posts.filter((post)=> {
+    if(post.userId === user._id && !post.ishide ){
+      return post
+    }
+  })
   if(!params.id) posts = posts.filter((post)=> {
     if(post.userId!== user._id && !post.ishide ){
       return post
