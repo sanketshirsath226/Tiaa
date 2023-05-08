@@ -39,6 +39,12 @@ const UserSchema = mongoose.Schema(
       require : true,
       default : false,
     },
+    role: {
+      type: String,
+      required: true,
+      enum: ["admin", "user"],
+      default: "user",
+    },
     createdAt: Date,
     profilePicture: String,
     coverPicture: String,

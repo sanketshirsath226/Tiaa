@@ -97,7 +97,9 @@ export const loginUser = async (req, res) => {
 
     if (user) {
       const validity = await bcrypt.compare(password, user.password);
-
+      // if(user.isBlock){
+      //   return  res.status(400).json("Your Blocked. Please Contact Admin...");
+      // }
       if (!validity) {
         res.status(400).json("wrong password");
       } else {

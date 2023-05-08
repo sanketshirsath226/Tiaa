@@ -44,7 +44,7 @@ const Auth = () => {
     e.preventDefault();
     if (isSignUp) {
       data.password === data.confirmpass
-        ? dispatch(signUp(data, setIsOtp))
+        ? dispatch(signUp(data, navigate))
         : setConfirmPass(false);
     } else {
       dispatch(logIn(data, setIsOtp));
