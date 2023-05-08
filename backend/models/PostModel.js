@@ -14,8 +14,17 @@ const postSchema = mongoose.Schema(
       default : "other"
     },
     image: {
-      type : String    
+      type : String,
     },
+    ishide:{
+      type : Boolean,
+      default : false
+    },
+    isReported : {
+      type : Boolean,
+      default : false
+    }
+    ,
     comments : [{
       comment : String,
       userId :{
