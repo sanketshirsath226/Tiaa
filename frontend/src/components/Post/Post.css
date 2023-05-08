@@ -25,11 +25,10 @@
 .comment-box{
     background-color: var(--inputColor);
     border-radius: 10px;
-    padding: 10px;
     font-size: 17px;
     width: 90%;
-    border: none;
-    outline: none;
+    border: none !important;
+    outline: none !important;
     overflow-wrap: break-word;
     max-height: 80;
 }

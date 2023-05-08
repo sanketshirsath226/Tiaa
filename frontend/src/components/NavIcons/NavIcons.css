@@ -2,7 +2,12 @@
     display: flex;
     margin-top: 1rem;
     justify-content: space-evenly;
+    align-items: center;
+    border-radius: 1rem;
+    height: 2rem;
+    background-color: rgb( 255, 255, 255,0.7) !important;
 }
+
 
 .navIcons>img {
     width: 1.5rem;

@@ -54,7 +54,6 @@ const Chat = () => {
       console.log(data)
       setReceivedMessage(data);
     }
-
     );
   }, []);
 
@@ -64,7 +63,7 @@ const Chat = () => {
     const online = onlineUsers.find((user) => user.userId === chatMember);
     return online ? true : false;
   };
-
+  console.log(chats)
   return (
     <div className="Chat">
       {/* Left Side */}
@@ -73,7 +72,8 @@ const Chat = () => {
         <div className="Chat-container">
           <h2>Chats</h2>
           <div className="Chat-list">
-            {chats.map((chat) => (
+            {
+              chats.map((chat) => (
               <div
                 onClick={() => {
                   setCurrentChat(chat);

@@ -1,23 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getTimelinePosts } from "../../actions/PostsAction";
 import Post from "../Post/Post";
 import { useSelector, useDispatch } from "react-redux";
 import "./Posts.css";
 import { useParams } from "react-router-dom";
+import { getAllUser } from "../../api/UserRequests";
 
 const Posts = () => {
   const params = useParams()
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.authReducer.authData);
   let { posts, loading } = useSelector((state) => state.postReducer);
+
+  const [persons, setPersons] = useState([]);
+  const { user } = useSelector((state) => state.authReducer.authData);
+
+  useEffect(() => {
+    const fetchPersons = async () => {
+      const { data } = await (getAllUser());
+      setPersons(data.filter((element)=>{
+        if(user.following.includes(element._id)){
+          return element
+        }
+      }));
+    };
+    fetchPersons();
+  }, []);
 
   useEffect(() => {
     dispatch(getTimelinePosts(user._id));
   }, []);
-  
-  useEffect(()=>{
-    console.log(posts)
-  },[posts])
+
   
   if(!posts) return 'No Posts';
   console.log(posts,user._id)
@@ -29,7 +41,7 @@ const Posts = () => {
         loading
         ? "Fetching posts...."
         :posts.map((post, id) => {
-             return <Post data={post} key={id} />;
+             return <Post data={post} key={id} userdata={persons} />;
           })}
     </div>
   );

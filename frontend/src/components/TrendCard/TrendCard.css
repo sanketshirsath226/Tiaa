@@ -1,7 +1,6 @@
 .TrendCard{
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     /* background-color: var(--cardColor); */
     /* padding: 1rem;
     border-radius: 1rem;
@@ -13,7 +12,8 @@
     border-radius: 1rem;
     padding-left: 2rem;
     gap: 1rem;
-    background-color: var(--cardColor);
+    background: var(--buttonBg);
+    color: white;
 }
 .TrendCard .cards{
     display: flex;

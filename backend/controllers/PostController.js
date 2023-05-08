@@ -102,8 +102,6 @@ export const getTimelinePosts = async (req, res) => {
       {
         $project: {
           followingPosts: 1,
-          "firstname" : 1,
-          "lastname" : 1,
           _id: 0,
         },
       },
@@ -173,3 +171,28 @@ export const getPostByCategory = async (req, res) => {
   }
 
 }
+
+export const addComment = async (req, res) =>{
+  const userId = req.params.id
+  const { postId,comment } = req.body;
+    try {
+      const post = await PostModel.findById(postId);
+       const newPost = await post.updateOne({ $push: { comments: { comment,userId } } });
+        res.status(200).json("Comment Added Successfully");
+      }catch (error) {
+        res.status(500).json(error);
+    } 
+  };
+
+  export const getComments = async (req, res) =>{
+    const userId = req.params.id
+    const { postId,comment } = req.body;
+      try {
+        const post = await PostModel.findById(postId);
+         const newPost = await post.updateOne({ $push: { comments: { comment,userId } } });
+          res.status(200).json("Comment Added Successfully");
+        }catch (error) {
+          res.status(500).json(error);
+      } 
+    };
+  

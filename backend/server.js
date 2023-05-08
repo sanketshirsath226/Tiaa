@@ -7,8 +7,11 @@ import cors from "cors";
 import UserRoute from "./routers/UserRoute.js";
 import AuthRoute from "./routers/AuthRoute.js";
 import PostRoute from "./routers/PostRoute.js";
+import ChatRoute from "./routers/ChatRoute.js";
+import MessageRoute from "./routers/MessageRoute.js";
 
 import fileUpload from 'express-fileupload';
+
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -99,3 +102,5 @@ app.post("/upload", (req, res) => {
 });
 app.use("/user", UserRoute);
 app.use("/post", PostRoute);
+app.use('/chat', ChatRoute)
+app.use('/message', MessageRoute)

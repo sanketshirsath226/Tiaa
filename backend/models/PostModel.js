@@ -16,7 +16,16 @@ const postSchema = mongoose.Schema(
     image: {
       type : String    
     },
-    comments : []
+    comments : [{
+      comment : String,
+      userId :{
+        type : String
+      },
+      createdAt: {
+        type: Date,
+        default: new Date(),
+      }
+    }]
   },
   {
     timestamps: true,
