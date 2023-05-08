@@ -6,4 +6,4 @@ const router = express.Router()
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.post('/otpvalidate',otpValidate)
-export default router
+export default router;

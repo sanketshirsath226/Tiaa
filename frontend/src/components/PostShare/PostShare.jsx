@@ -8,6 +8,7 @@ import { UilTimes } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadImage, uploadPost } from "../../actions/UploadAction";
 import Profile from "../../img/profileImg.jpg";
+import { toast } from "react-hot-toast";
 
 const PostShare = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const PostShare = () => {
   const [image, setImage] = useState(null);
   const desc = useRef();
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
-
+  const [error,setError] = useState()
   // handle Image Change
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -30,19 +31,29 @@ const PostShare = () => {
   // handle post upload
   const handleUpload = async (e) => {
     e.preventDefault();
+    var count = desc.current.value.length;
+    console.log(count)
+    if(count>2000){
+      toast.error('Maximum word limit (2000)');
+
+      return;
+    }
+    const newPost = {
+      userId: user._id,
+      desc: desc.current.value,
+    };
     let category = null;
     try{
       category = String(desc.current.value).split("#")[1]
       console.log(category)
     }catch(e){
-      category = null;
+      console.log(e)
     }
-    //post data
-    const newPost = {
-      userId: user._id,
-      desc: desc.current.value,
-      category
-    };
+    if(category){
+      newPost["category"] = category
+    }  
+  //post data
+
 
     // if there is an image with post
     if (image) {

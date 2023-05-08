@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "./store/ReduxStore";
 import App from "./App";
-
+import { Toaster } from 'react-hot-toast';
 // stack overflow
 
 ReactDOM.render(
@@ -13,8 +13,12 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<App />} />
-        </Routes>
+        </Routes>     
+        <Toaster 
+          position="top-center"
+        />
       </BrowserRouter>
+      
   </Provider>,
   document.getElementById("root")
 );
