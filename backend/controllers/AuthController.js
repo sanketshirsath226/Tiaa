@@ -38,7 +38,7 @@ export const registerUser = async (req, res) => {
     if(!otpModel){
       console.log("Otp Model Error")
     }
-    await otpModel.save();
+    // await otpModel.save();
 
     await sendMail(
       user.email,
