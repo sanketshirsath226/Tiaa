@@ -1,0 +1,13 @@
+.AdminProfileSide {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: auto;
+}
+
+
+
+.navIcons>img {
+    width: 1.5rem;
+    height: 1.5rem;
+}

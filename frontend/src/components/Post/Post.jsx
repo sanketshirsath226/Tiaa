@@ -4,11 +4,12 @@ import Comment from "../../img/comment.png";
 import Share from "../../img/share.png";
 import Heart from "../../img/like.png";
 import NotLike from "../../img/notlike.png";
-import { likePost } from "../../api/PostsRequests";
+import { likePost, reportPost } from "../../api/PostsRequests";
 import { useDispatch, useSelector } from "react-redux";
 import { Mention, MentionsInput } from "react-mentions";
 import { addComments } from "../../api/CommentRequests";
-
+import {MdReportProblem } from "react-icons/md"; 
+import { toast } from "react-hot-toast";
 const Post = ({ data,userdata }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.postReducer.uploading);
@@ -174,7 +175,10 @@ const Post = ({ data,userdata }) => {
         <img src={Comment} style={{ cursor: "pointer" }} onClick={()=>{
           setShowComment(!showComment)
         }}/>
-        <img src={Share} alt="" />
+        <MdReportProblem style={{cursor: "pointer",fontSize:"1.5rem"}} onClick={()=>{
+          reportPost(data._id)
+          toast.success("Post Reported")
+        }}/>
       </div>
       {(showComment)?
       <>

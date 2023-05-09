@@ -22,3 +22,14 @@ export const getCategoryPosts = (id,category) => async (dispatch) => {
     dispatch({ type: "RETREIVING_FAIL" });
   }
 };
+
+export const getAllPost = () => async (dispatch) => {
+  dispatch({ type: "RETREIVING_START" });
+  try {
+    const { data } = await PostsApi.getAllPost();
+    dispatch({ type: "RETREIVING_SUCCESS", data: data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "RETREIVING_FAIL" });
+  }
+};

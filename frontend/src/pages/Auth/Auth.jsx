@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
 import { logIn, signUp } from "../../actions/AuthActions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Auth = () => {
   const initialState = {
@@ -38,6 +39,13 @@ const Auth = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  useEffect(()=>{
+    if(!confirmPass){
+      toast.error(
+        "Confirm Password Not Matching"
+      )
+    }
+  },[confirmPass])
   // Form Submission
   const handleSubmit = (e) => {
     setConfirmPass(true);
@@ -149,17 +157,7 @@ const Auth = () => {
               onChange={handleChange}
             />
           </div>)}
-          <span
-            style={{
-              color: "red",
-              fontSize: "12px",
-              alignSelf: "flex-end",
-              marginRight: "5px",
-              display: confirmPass ? "none" : "block",
-            }}
-          >
-            *Confirm password is not same
-          </span>
+
           <div>
             <span
               style={{

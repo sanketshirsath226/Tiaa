@@ -1,0 +1,6 @@
+.Admin {
+    position: relative;
+    display: grid;
+    grid-template-columns: 20rem auto;
+    gap: 1rem;
+}

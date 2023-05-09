@@ -1,5 +1,5 @@
 import express from 'express'
-import { addComment, createPost, deletePost, getPost, getPostByCategory, getTimelinePosts, likePost, updatePost } from '../controllers/PostController.js'
+import { addComment, createPost, deletePost, getPost, getPostByCategory, getTimelinePosts, likePost, updatePost,getAllPost } from '../controllers/PostController.js'
 import authMiddleWare from '../middleware/authMiddleware.js'
 const router = express.Router()
 
@@ -11,4 +11,5 @@ router.put('/:id/like', likePost)
 router.get('/:id/timeline', getTimelinePosts)
 router.get('/:id/:category', getPostByCategory)
 router.put('/:id/addComment',addComment)
+router.get('/',getAllPost)
 export default router

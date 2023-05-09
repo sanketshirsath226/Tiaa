@@ -35,7 +35,6 @@ const PostShare = () => {
     console.log(count)
     if(count>2000){
       toast.error('Maximum word limit (2000)');
-
       return;
     }
     const newPost = {
@@ -70,6 +69,7 @@ const PostShare = () => {
       }
     }
     dispatch(uploadPost(newPost));
+    toast.success("Added Post Successfully")
     resetShare();
   };
 
