@@ -55,4 +55,3 @@ This project is licensed under the MIT License. You can find the details in the 
 ## Acknowledgments
 This project was created as part of Tia Hackhtoh's portfolio and has been recognized with a prestigious prize for its innovative features and overall quality. It serves as a demonstration of full-stack development skills and is not intended for commercial use. The Quora website design and functionality are inspired by the original Quora platform but do not claim to be an exact replica.
 
-## Price
